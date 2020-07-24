@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:columnCount="3"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:rowCount="2"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_height="64dp"
+        android:layout_margin="5dp"
+        android:layout_width="64dp"
+        android:layout_columnWeight="1"
+        android:src="@drawable/ic_pressure"/>
+
+    <ImageView
+        android:layout_height="64dp"
+        android:layout_margin="5dp"
+        android:layout_width="64dp"
+        android:layout_columnWeight="1"
+        android:src="@drawable/ic_humidity"/>
+
+    <ImageView
+        android:layout_height="64dp"
+        android:layout_margin="5dp"
+        android:layout_width="64dp"
+        android:layout_columnWeight="1"
+        android:src="@drawable/ic_wind"/>
+
+    <TextView
+        android:id="@+id/tv_fragment_weather_current_conditions_air_pressure"
+        android:layout_gravity="fill"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="mm" />
+
+    <TextView
+        android:id="@+id/tv_fragment_weather_current_conditions_humidity"
+        android:layout_gravity="fill"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="mm" />
+
+    <TextView
+        android:id="@+id/tv_fragment_weather_current_conditions_wind_speed"
+        android:layout_gravity="fill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mm" />
+
+</GridLayout>

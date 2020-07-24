@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="settings">Settings</string>
+    <string name="select_city">Select city</string>
+    <string name="language">en</string>
+
+    <!-- No translatable -->
+    <string name="title_activity_settings" translatable="false">Settings</string>
+    <string name="air_pressure_units" translatable="false">hPa</string>
+    <string name="percent" translatable="false">%</string>
+
+    <!-- Preference Titles -->
+    <string name="units_header">Units</string>
+
+    <!-- Units Preferences -->
+    <string name="temperature">Temperature</string>
+    <string name="temperature_summary_off">Celcius</string>
+    <string name="temperature_summary_on">Fahrenheit</string>
+    <string name="speed_units">Speed (m/s, mil/h)</string>
+    <string name="speed_summary_off">m/s</string>
+    <string name="speed_summary_on">mil/h</string>
+    <string name="air_pressure_summary_on">mm Hg</string>
+
+</resources>

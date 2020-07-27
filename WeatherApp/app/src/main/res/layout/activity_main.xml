@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -13,19 +14,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/layout_bottom_app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/bottom_app_bar"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/bottom_app_bar_menu"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        <include layout="@layout/component_app_bar"
+            android:id="@+id/component_app_bar"/>
 
         <FrameLayout
             android:id="@+id/fragment_weather_current_conditions"
@@ -41,7 +31,9 @@
 
     </LinearLayout>
 
+    <!-- Добавлен NavigationView -->
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
         android:fitsSystemWindows="true"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

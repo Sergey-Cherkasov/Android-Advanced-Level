@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -11,10 +12,12 @@ import androidx.preference.PreferenceManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import java.util.List;
+import com.google.android.material.navigation.NavigationView;
 
 import br.svcdev.weatherapp.data.CitiesDatabase;
 import br.svcdev.weatherapp.data.dao.CityDao;
@@ -27,7 +30,7 @@ import br.svcdev.weatherapp.models.WeatherAppSettings;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private Toolbar mBottomAppBar;
+    private Toolbar mAppBar;
     private ActionBar mActionBar;
 
     CitiesDatabase db;
@@ -39,14 +42,32 @@ public class MainActivity extends AppCompatActivity {
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        db = CitiesDatabase.getDatabase(this);
-        dao = db.getCitiesDao();
-        City[] listCities = dao.getAllCities();
-
-
+//        TODO: Разобраться в причине ошибки Wrong schema 'cities'
+//        db = CitiesDatabase.getDatabase(this);
+//        dao = db.getCitiesDao();
+//        City[] listCities = dao.getAllCities();
 
         loadWeatherAppSettings();
-        initBottomAppBar();
+        initAppBar();
+
+        /*
+         * Инициализован слушатель на пункты меню в navigation view. При нажатии на пункт меню,
+         * он остается выделенным.
+         */
+        mBinding.navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.about:
+                    item.setChecked(true);
+                    break;
+                case R.id.feedback:
+                    item.setChecked(true);
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        });
+
         initWeatherCurrentConditionsFragment();
         initWeatherDailyForecastFragment();
     }
@@ -58,16 +79,15 @@ public class MainActivity extends AppCompatActivity {
         settings.setWindSpeedUnits(sp.getBoolean("speed_units", false));
     }
 
-    private void initBottomAppBar() {
-        mBottomAppBar = mBinding.bottomAppBar;
-//        mBottomAppBar.setNavigationIcon(R.drawable.ic_location_city);
-        mBottomAppBar.setNavigationIcon(R.drawable.ic_menu);
-        setSupportActionBar(mBottomAppBar);
-        mBottomAppBar.setNavigationOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, SearchLocationActivity.class);
-            startActivity(intent);
-        });
-        mActionBar = getSupportActionBar();
+    /** Метод инициализирует app bar и подключает слушателя на navigation button, при нажатии
+     * на которую открывается navigation view.
+     */
+    private void initAppBar() {
+        mAppBar = mBinding.componentAppBar.appBar;
+        mAppBar.setNavigationIcon(R.drawable.ic_menu);
+        setSupportActionBar(mAppBar);
+        mAppBar.setNavigationOnClickListener(view -> mBinding.drawerLayout
+                .openDrawer(GravityCompat.START));
     }
 
     private void initWeatherDailyForecastFragment() {
@@ -88,18 +108,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.bottom_app_bar_menu, menu);
+        getMenuInflater().inflate(R.menu.app_bar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * Реализован метод выбора действий при нажатии на пункт меню app bar.
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-        } else {
-            return super.onOptionsItemSelected(item);
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.search_location:
+                intent = new Intent(this, SearchLocationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.settings:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }
+
+
 }

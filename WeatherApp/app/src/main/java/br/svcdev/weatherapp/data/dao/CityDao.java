@@ -15,10 +15,10 @@ public interface CityDao {
 
     // Выбираем все записи
     @Query("SELECT * FROM cities")
-    City[] getAllCities();
+    List<City> getAllCities();
 
     // Выбираем записи удовлетворяющие условию
-    @Query("SELECT * FROM cities where name LIKE :name LIMIT 5")
+    @Query("SELECT * FROM cities WHERE name LIKE :name LIMIT 5")
     List<City> getListCities(String name);
 
     // Количество записей в БД

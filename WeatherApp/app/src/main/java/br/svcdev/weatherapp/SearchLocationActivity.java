@@ -16,12 +16,16 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import br.svcdev.weatherapp.adapters.CitiesAutocompleteAdapter;
+import br.svcdev.weatherapp.data.CitiesDatabase;
+import br.svcdev.weatherapp.data.dao.CityDao;
 import br.svcdev.weatherapp.databinding.ActivitySearchLocationBinding;
 import br.svcdev.weatherapp.data.models.City;
 
 public class SearchLocationActivity extends AppCompatActivity {
 
     private ActivitySearchLocationBinding mBinding;
+    private CitiesDatabase db;
+    private CityDao dao;
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
@@ -57,6 +61,9 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         ActionMode actionMode = startSupportActionMode(mActionModeCallback);
 
+        db = CitiesDatabase.getDatabase(this);
+        dao = db.getCitiesDao();
+
 //        String jsonStringCities = loadDataCitiesFromResource();
 
         GsonBuilder builder = new GsonBuilder();
@@ -68,7 +75,7 @@ public class SearchLocationActivity extends AppCompatActivity {
         mBinding.tvLocation.setAutocompleteDelay(800);
 //        mBinding.tvLocation.setAdapter(new LocationAutocompleteAdapter(this, listCities));
 
-        mBinding.tvLocation.setAdapter(new CitiesAutocompleteAdapter(this));
+        mBinding.tvLocation.setAdapter(new CitiesAutocompleteAdapter(this, dao));
 
         mBinding.tvLocation.setIndicatorLoading(mBinding.pbLocation);
         mBinding.tvLocation.setOnItemClickListener((adapterView, view, i, l) -> {

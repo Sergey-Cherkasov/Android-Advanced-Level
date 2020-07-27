@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.svcdev.weatherapp.BuildConfig;
 import br.svcdev.weatherapp.R;
 
 public class SendRequest extends AsyncTask<Void, Map<String, String>, Map<String, String>> {
@@ -89,7 +90,7 @@ public class SendRequest extends AsyncTask<Void, Map<String, String>, Map<String
         for (Map.Entry<String, Object> entry : mRequestParameters.entrySet()) {
             builder.appendQueryParameter(entry.getKey(), entry.getValue().toString());
         }
-        builder.appendQueryParameter("appid", HostRequestConstants.getWeatherKey());
+        builder.appendQueryParameter("apikey", BuildConfig.API_KEY);
         String dataTransferProtocol = HostRequestConstants.DATA_TRANSFER_PROTOCOL;
         String host = HostRequestConstants.OPEN_WEATHER_HOST;
         String requestParameters = builder.build().getEncodedQuery();

@@ -1,6 +1,7 @@
 package br.svcdev.weatherapp.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import br.svcdev.weatherapp.Constants;
 import br.svcdev.weatherapp.R;
+import br.svcdev.weatherapp.SearchLocationActivity;
 import br.svcdev.weatherapp.models.location.Cities;
 
 public class LocationAutocompleteAdapter extends BaseAdapter implements Filterable {
@@ -36,7 +39,7 @@ public class LocationAutocompleteAdapter extends BaseAdapter implements Filterab
     public LocationAutocompleteAdapter(Context context, List<Cities> listCities) {
         this.mContext = context;
         this.mListCities = listCities;
-        this.mResult = new ArrayList<>();
+        this.mResult = new ArrayList<Cities>();
     }
 
     @Override
@@ -50,8 +53,8 @@ public class LocationAutocompleteAdapter extends BaseAdapter implements Filterab
     }
 
     @Override
-    public Object getItem(int i) {
-        return mResult.get(i);
+    public Cities getItem(int index) {
+        return mResult.get(index);
     }
 
     @Override

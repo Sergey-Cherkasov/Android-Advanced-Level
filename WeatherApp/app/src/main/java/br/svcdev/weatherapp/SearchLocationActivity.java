@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
@@ -16,12 +14,10 @@ import com.google.gson.GsonBuilder;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 
-import br.svcdev.weatherapp.adapters.LocationAutocompleteAdapter;
+import br.svcdev.weatherapp.adapters.CitiesAutocompleteAdapter;
 import br.svcdev.weatherapp.databinding.ActivitySearchLocationBinding;
-import br.svcdev.weatherapp.models.location.Cities;
+import br.svcdev.weatherapp.data.models.City;
 
 public class SearchLocationActivity extends AppCompatActivity {
 
@@ -61,21 +57,23 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         ActionMode actionMode = startSupportActionMode(mActionModeCallback);
 
-        String jsonStringCities = loadDataCitiesFromResource();
+//        String jsonStringCities = loadDataCitiesFromResource();
+
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        List<Cities> listCities = Arrays.asList(gson.fromJson(jsonStringCities, Cities[].class));
+
+//        List<Cities> listCities = Arrays.asList(gson.fromJson(jsonStringCities, Cities[].class));
 
         mBinding.tvLocation.setThreshold(3);
         mBinding.tvLocation.setAutocompleteDelay(800);
-        mBinding.tvLocation.setAdapter(new LocationAutocompleteAdapter(this, listCities));
+//        mBinding.tvLocation.setAdapter(new LocationAutocompleteAdapter(this, listCities));
+
+        mBinding.tvLocation.setAdapter(new CitiesAutocompleteAdapter(this));
+
         mBinding.tvLocation.setIndicatorLoading(mBinding.pbLocation);
-        mBinding.tvLocation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Cities cities = (Cities) adapterView.getItemAtPosition(i);
-                mBinding.tvLocation.setText(cities.getName());
-            }
+        mBinding.tvLocation.setOnItemClickListener((adapterView, view, i, l) -> {
+            City city = (City) adapterView.getItemAtPosition(i);
+            mBinding.tvLocation.setText(city.getCityName());
         });
 
     }

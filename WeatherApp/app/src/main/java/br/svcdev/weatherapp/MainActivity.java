@@ -3,6 +3,7 @@ package br.svcdev.weatherapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -13,8 +14,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomappbar.BottomAppBar;
+import java.util.List;
 
+import br.svcdev.weatherapp.data.CitiesDatabase;
+import br.svcdev.weatherapp.data.dao.CityDao;
+import br.svcdev.weatherapp.data.models.City;
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
 import br.svcdev.weatherapp.fragments.WeatherCurrentConditions;
 import br.svcdev.weatherapp.fragments.WeatherDailyForecast;
@@ -23,14 +27,23 @@ import br.svcdev.weatherapp.models.WeatherAppSettings;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private BottomAppBar mBottomAppBar;
+    private Toolbar mBottomAppBar;
     private ActionBar mActionBar;
+
+    CitiesDatabase db;
+    CityDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
+
+        db = CitiesDatabase.getDatabase(this);
+        dao = db.getCitiesDao();
+        City[] listCities = dao.getAllCities();
+
+
 
         loadWeatherAppSettings();
         initBottomAppBar();
@@ -47,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initBottomAppBar() {
         mBottomAppBar = mBinding.bottomAppBar;
-        mBottomAppBar.setNavigationIcon(R.drawable.ic_location_city);
+//        mBottomAppBar.setNavigationIcon(R.drawable.ic_location_city);
+        mBottomAppBar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(mBottomAppBar);
         mBottomAppBar.setNavigationOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, SearchLocationActivity.class);

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Погода</string>
     <string name="settings">Настройки</string>
-    <string name="select_city">Выбор города</string>
+    <string name="search_location">Выбор города</string>
     <string name="language">ru</string>
     <string name="units_header">Единицы измерения</string>
     <string name="temperature">Температура</string>
@@ -12,4 +12,6 @@
     <string name="speed_summary_off">м/с</string>
     <string name="speed_summary_on">мил/ч</string>
     <string name="air_pressure_summary_on">мм рт ст</string>
+    <string name="about">О разработчике</string>
+    <string name="feedback">Обратная связь</string>
 </resources>

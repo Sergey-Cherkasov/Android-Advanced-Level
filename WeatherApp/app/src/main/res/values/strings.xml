@@ -2,7 +2,7 @@
     <string name="app_name">Weather App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="settings">Settings</string>
-    <string name="select_city">Select city</string>
+    <string name="search_location">Search location</string>
     <string name="language">en</string>
 
     <!-- No translatable -->
@@ -21,5 +21,7 @@
     <string name="speed_summary_off">m/s</string>
     <string name="speed_summary_on">mil/h</string>
     <string name="air_pressure_summary_on">mm Hg</string>
+    <string name="about">About</string>
+    <string name="feedback">Feedback</string>
 
 </resources>

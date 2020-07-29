@@ -1,5 +1,6 @@
 package br.svcdev.weatherapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -7,19 +8,16 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
+import androidx.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import br.svcdev.weatherapp.adapters.CitiesAutocompleteAdapter;
 import br.svcdev.weatherapp.data.CitiesDatabase;
 import br.svcdev.weatherapp.data.dao.CityDao;
-import br.svcdev.weatherapp.databinding.ActivitySearchLocationBinding;
 import br.svcdev.weatherapp.data.models.City;
+import br.svcdev.weatherapp.databinding.ActivitySearchLocationBinding;
 
 public class SearchLocationActivity extends AppCompatActivity {
 
@@ -59,21 +57,13 @@ public class SearchLocationActivity extends AppCompatActivity {
         mBinding = ActivitySearchLocationBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
-        ActionMode actionMode = startSupportActionMode(mActionModeCallback);
+        startSupportActionMode(mActionModeCallback);
 
         db = CitiesDatabase.getDatabase(this);
         dao = db.getCitiesDao();
 
-//        String jsonStringCities = loadDataCitiesFromResource();
-
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-//        List<Cities> listCities = Arrays.asList(gson.fromJson(jsonStringCities, Cities[].class));
-
         mBinding.tvLocation.setThreshold(3);
         mBinding.tvLocation.setAutocompleteDelay(800);
-//        mBinding.tvLocation.setAdapter(new LocationAutocompleteAdapter(this, listCities));
 
         mBinding.tvLocation.setAdapter(new CitiesAutocompleteAdapter(this, dao));
 
@@ -83,26 +73,6 @@ public class SearchLocationActivity extends AppCompatActivity {
             mBinding.tvLocation.setText(city.getCityName());
         });
 
-    }
-
-    private String loadDataCitiesFromResource() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (InputStream is = getResources().openRawResource(R.raw.city_list)) {
-            byte[] byteBuffer = new byte[512];
-            int len;
-            while ((len = is.read(byteBuffer)) != -1){
-                baos.write(byteBuffer, 0, len);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                baos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return baos.toString();
     }
 
 }

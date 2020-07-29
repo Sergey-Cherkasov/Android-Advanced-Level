@@ -14,4 +14,5 @@
     <string name="air_pressure_summary_on">мм рт ст</string>
     <string name="about">О разработчике</string>
     <string name="feedback">Обратная связь</string>
+    <string name="menu_ok" translatable="false">Сохранить</string>
 </resources>

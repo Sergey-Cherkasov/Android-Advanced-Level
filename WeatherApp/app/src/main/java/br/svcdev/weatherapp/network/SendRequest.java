@@ -76,10 +76,12 @@ public class SendRequest extends AsyncTask<Void, Map<String, String>, Map<String
                 ((ServerResponse) mContext.findFragmentById(R.id.fragment_weather_current_conditions))
                         .onServerResponse(responseMap);
                 break;
-            case HostRequestConstants.CONTROLLER_DAILY_FORECAST:
+            case HostRequestConstants.CONTROLLER_FIVE_DAYS_PER_THREE_HOURS_FORECAST:
                 ((ServerResponse) mContext
                         .findFragmentById(R.id.fragment_weather_daily_forecast))
                         .onServerResponse(responseMap);
+                break;
+            case HostRequestConstants.CONTROLLER_DAILY_FORECAST:
                 break;
             default:
         }

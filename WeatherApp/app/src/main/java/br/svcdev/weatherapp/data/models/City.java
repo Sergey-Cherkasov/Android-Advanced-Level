@@ -2,22 +2,17 @@ package br.svcdev.weatherapp.data.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-// @Entity - это признак табличного объекта, то есть объект будет сохраняться
-// в базе данных в виде строки
-// indices указывает на индексы в таблице
-@Entity(tableName = "Cities")
+@Entity(tableName = "cities")
 public class City {
 
-    // @PrimaryKey - указывает на ключевую запись,
-    // autoGenerate = true - автоматическая генерация ключа
+    @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
 
     @ColumnInfo(name = "city_id")
-    private long cityId;
+    private int cityId;
 
     @ColumnInfo(name = "name")
     private String cityName;
@@ -28,14 +23,14 @@ public class City {
     @ColumnInfo(name = "country")
     private String cityCountry;
 
-    public City(long cityId, String cityName, String cityState, String cityCountry){
+    public City(int cityId, String cityName, String cityState, String cityCountry){
         this.cityId = cityId;
         this.cityName = cityName;
         this.cityState = cityState;
         this.cityCountry = cityCountry;
     }
 
-    public long getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
@@ -51,11 +46,11 @@ public class City {
         return cityCountry;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

@@ -21,7 +21,7 @@ import java.util.Map;
 
 import br.svcdev.weatherapp.R;
 import br.svcdev.weatherapp.databinding.FragmentWeatherCurrentConditionsBinding;
-import br.svcdev.weatherapp.models.currentweather.CurrentWeather;
+import br.svcdev.weatherapp.models.weather.CurrentWeather;
 import br.svcdev.weatherapp.network.HostRequestConstants;
 import br.svcdev.weatherapp.network.SendRequest;
 import br.svcdev.weatherapp.network.ServerResponse;

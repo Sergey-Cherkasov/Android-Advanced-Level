@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.svcdev.weatherapp.data.CitiesDatabase;
 import br.svcdev.weatherapp.data.dao.CityDao;
 import br.svcdev.weatherapp.data.models.City;
 
@@ -20,13 +19,11 @@ public class CitiesAutocompleteAdapter extends BaseAdapter implements Filterable
     private Context mContext;
     private List<City> mCityList;
 
-    private CitiesDatabase mDb;
-    private CityDao mDao;
+    private CityDao dao;
 
-    public CitiesAutocompleteAdapter(Context context){
+    public CitiesAutocompleteAdapter(Context context, CityDao dao) {
         this.mContext = context;
-//        mDb = CitiesDatabase.getDatabase(mContext);
-//        mDao = mDb.getCitiesDao();
+        this.dao = dao;
     }
 
     @Override
@@ -57,11 +54,7 @@ public class CitiesAutocompleteAdapter extends BaseAdapter implements Filterable
         City city = getItem(position);
         String cityString = String.format("%s, %s", city.getCityName(), city.getCityCountry());
         ((TextView) view.findViewById(android.R.id.text1)).setText(cityString);
-        return null;
-    }
-
-    void setCitiesList(List<City> cityList){
-        mCityList = cityList;
+        return view;
     }
 
     @Override
@@ -71,22 +64,21 @@ public class CitiesAutocompleteAdapter extends BaseAdapter implements Filterable
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
                 if (charSequence != null) {
-                    List<City> tempCityList = getFilterResults(charSequence);
-                    filterResults.values = tempCityList;
-                    filterResults.count = tempCityList.size();
+                    List<City> tempList = getFilterResults(charSequence);
+                    filterResults.values = tempList;
+                    filterResults.count = tempList.size();
                 }
                 return filterResults;
             }
 
             private List<City> getFilterResults(CharSequence charSequence) {
-//                if (charSequence != null){
-//                    if (charSequence.equals("")){
-//                        mDao.getAllCities();
-//                    } else {
-//                        mDao.getListCities(charSequence.toString());
-//                    }
-//                }
-                return mCityList;
+                if (charSequence.equals("")) {
+                    return dao.getAllCities();
+                } else {
+                    String tmpString = charSequence.toString().substring(0,1).toUpperCase() +
+                            charSequence.toString().substring(1);
+                    return dao.getListCities(String.format("%s%%",tmpString));
+                }
             }
 
             @Override

@@ -2,14 +2,21 @@ package br.svcdev.weatherapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
     private ActionBar mActionBar;
+    private SensorManager mSensorManager;
+
+    private Bundle mArgs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        requestSensors();
 
         loadWeatherAppSettings();
         initAppBar();
@@ -44,6 +55,29 @@ public class MainActivity extends AppCompatActivity {
 
         initWeatherCurrentConditionsFragment();
         initWeatherDailyForecastFragment();
+    }
+
+    /**
+     * Метод инициализации сенсоров: TYPE_AMBIENT_TEMPERATURE, TYPE_RELATIVE_HUMIDITY
+     */
+    private void requestSensors() {
+        mArgs = new Bundle();
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) == null &&
+                mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) == null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Attention").setMessage("There are no temperature" +
+                    " or humidity sensors on Your device").setCancelable(false)
+            .setPositiveButton(R.string.menu_ok, (dialog, id) -> {
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            mArgs.putBoolean("Temperature", false);
+            mArgs.putBoolean("Humidity", false);
+        } else {
+            mArgs.putBoolean("Temperature", true);
+            mArgs.putBoolean("Humidity", true);
+        }
     }
 
     private void loadWeatherAppSettings() {
@@ -73,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initWeatherCurrentConditionsFragment() {
         Fragment mWeatherCurrentConditionsFragment = new WeatherCurrentConditions();
+        mWeatherCurrentConditionsFragment.setArguments(mArgs);
         FragmentTransaction mWeatherCurrentConditionsTransaction = getSupportFragmentManager()
                 .beginTransaction();
         mWeatherCurrentConditionsTransaction.replace(R.id.fragment_weather_current_conditions,
@@ -107,5 +142,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, nameClass));
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

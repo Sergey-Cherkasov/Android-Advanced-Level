@@ -1,7 +1,13 @@
 package br.svcdev.weatherapp.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +25,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
+import br.svcdev.weatherapp.Constants;
 import br.svcdev.weatherapp.R;
 import br.svcdev.weatherapp.databinding.FragmentWeatherCurrentConditionsBinding;
 import br.svcdev.weatherapp.models.weather.CurrentWeather;
@@ -36,10 +43,70 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
     private int mHumidity;
     private float mWindSpeed;
 
+    private SensorManager mSensorManager;
+
+    /* Сенсоры темературы и влажности*/
+    private Sensor mTemperatureSensor;
+    private Sensor mHumiditySensor;
+
+    /**
+     * Объявление и инициализация слушателя для сенсора TYPE_AMBIENT_TEMPERATURE
+     */
+    private SensorEventListener mTempListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float tempValue = event.values[0];
+            mBinding.componentWeatherCurrentConditionsCurrentTemperature
+                    .tvFragmentWeatherCurrentConditionsTemperature.setText(String.valueOf(tempValue));
+            Log.d(Constants.TAG_APP, "onSensorChanged: tempValue = " + tempValue);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
+    /**
+     * Объявление и инициализация слушателя для сенсора TYPE_RELATIVE_HUMIDITY
+     */
+    private SensorEventListener mHumidityListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            float humidityValue = event.values[0];
+            Log.d(Constants.TAG_APP, "onSensorChanged: humidityValue = " + humidityValue);
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onSendRequest();
+        boolean isTemperatureSensorPresent;
+        boolean isHumiditySensorPresent;
+
+        if (getArguments() != null) {
+            isTemperatureSensorPresent = getArguments().getBoolean("Temperature");
+            isHumiditySensorPresent = getArguments().getBoolean("Humidity");
+        } else {
+            isTemperatureSensorPresent = false;
+            isHumiditySensorPresent = false;
+        }
+        /*
+        * Если сенсоры температуры и влажности имеются у устройства, то инициализируем их.
+        * В противном случае отправляем запрос на погодный сервис.
+        */
+        if (isTemperatureSensorPresent && isHumiditySensorPresent) {
+            mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+            mTemperatureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            mHumiditySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        } else {
+            onSendRequest();
+        }
     }
 
     @Nullable
@@ -146,4 +213,31 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
         return windSpeed * 2.237f;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        /*
+         * Проверяем на наличие сенсоров.
+         * Регистрируем слушатели сенсеров: TYPE_AMBIENT_TEMPERATURE, TYPE_RELATIVE_HUMIDITY
+         */
+        if (mTemperatureSensor != null & mHumiditySensor != null){
+            mSensorManager.registerListener(mTempListener, mTemperatureSensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(mHumidityListener,mHumiditySensor,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        /*
+         * Проверяем на наличие сенсоров.
+         * Отключаем слушатели сенсоров: TYPE_AMBIENT_TEMPERATURE, TYPE_RELATIVE_HUMIDITY
+         */
+        if (mTemperatureSensor != null && mHumiditySensor != null) {
+            mSensorManager.unregisterListener(mTempListener);
+            mSensorManager.unregisterListener(mHumidityListener);
+        }
+    }
 }

@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_weather_daily_forecast"
     android:layout_height="250dp"
-    app:cardCornerRadius="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="8dp"
+    android:layout_width="150dp"
+    app:strokeColor="@color/design_default_color_primary"
+    app:strokeWidth="1dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
-            android:id="@+id/tv_weather_daily_forecast_cardview_day_of_week"
+            android:id="@+id/tv_weather_daily_forecast_cardview_date"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Today"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_weather_daily_forecast_cardview_cloudiness"
+        <TextView
+            android:id="@+id/tv_weather_daily_forecast_cardview_time"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Today"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_weather_daily_forecast_cardview_date" />
+
+        <ImageView
+            android:id="@+id/iv_weather_daily_forecast_cardview_cloudiness"
+            android:layout_height="60dp"
+            android:layout_width="60dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/ic_sun_rain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_weather_daily_forecast_cardview_day_of_week" />
+            app:layout_constraintTop_toBottomOf="@id/tv_weather_daily_forecast_cardview_time" />
 
         <LinearLayout
             android:id="@+id/linearlayout_weather_daily_forecast_cardview_temperature"
@@ -41,13 +61,13 @@
                 android:id="@+id/tv_weather_daily_forecast_cardview_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19"
-                android:textSize="60sp"/>
+                android:text="21"
+                android:textSize="30sp" />
 
             <ImageView
                 android:id="@+id/iv_weather_daily_forecast_cardview_temperature_units"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_celsius" />
 

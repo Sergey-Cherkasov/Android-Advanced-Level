@@ -1,5 +1,7 @@
 package br.svcdev.weatherapp.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,50 +9,70 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Locale;
 
 import br.svcdev.weatherapp.R;
 import br.svcdev.weatherapp.models.weather.DailyForecasts;
-import br.svcdev.weatherapp.models.weather.DayForecastWeather;
 
 public class WeatherDailyForecastRecyclerViewAdapter
         extends RecyclerView.Adapter<WeatherDailyForecastRecyclerViewAdapter
         .WeatherDailyForecastHolder> {
 
-    public static class WeatherDailyForecastHolder extends RecyclerView.ViewHolder{
+    public static class WeatherDailyForecastHolder extends RecyclerView.ViewHolder {
 
-        private TextView mDayOfWeek;
+        private TextView mDate;
+        private TextView mTime;
         private ImageView mCloudinnes;
         private TextView mTemperature;
         private ImageView mTemperatureUnits;
 
         public WeatherDailyForecastHolder(@NonNull View itemView) {
             super(itemView);
-            mDayOfWeek = itemView.findViewById(R.id.tv_weather_daily_forecast_cardview_day_of_week);
+            mDate = itemView.findViewById(R.id.tv_weather_daily_forecast_cardview_date);
+            mTime = itemView.findViewById(R.id.tv_weather_daily_forecast_cardview_time);
             mTemperature = itemView.findViewById(R.id.tv_weather_daily_forecast_cardview_temperature);
             mCloudinnes = itemView.findViewById(R.id.iv_weather_daily_forecast_cardview_cloudiness);
             mTemperatureUnits = itemView.findViewById(R.id.iv_weather_daily_forecast_cardview_temperature_units);
         }
 
-        public TextView getDayOfWeek() {return mDayOfWeek;}
-        public TextView getTemperature() {return mTemperature;}
-        public ImageView getCloudinnes() {return mCloudinnes;}
-        public ImageView getTemperatureUnits() {return mTemperatureUnits;}
+        public TextView getDate() {
+            return mDate;
+        }
 
-        public void setData(String dayOfWeek, String temperature){
-            getDayOfWeek().setText(dayOfWeek);
+        public TextView getTime() {
+            return mTime;
+        }
+
+        public TextView getTemperature() {
+            return mTemperature;
+        }
+
+        public ImageView getCloudinnes() {
+            return mCloudinnes;
+        }
+
+        public ImageView getTemperatureUnits() {
+            return mTemperatureUnits;
+        }
+
+        public void setData(String date, String time, String temperature, int imageResourceId) {
+            getDate().setText(date);
+            getTime().setText(time);
             getTemperature().setText(temperature);
+            getTemperatureUnits().setImageResource(imageResourceId);
         }
 
     }
 
     private DailyForecasts mDataSource;
+    private SharedPreferences sp;
 
-    public WeatherDailyForecastRecyclerViewAdapter(DailyForecasts dataSource) {
+    public WeatherDailyForecastRecyclerViewAdapter(Context context, DailyForecasts dataSource) {
         this.mDataSource = dataSource;
+        this.sp = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @NonNull
@@ -64,8 +86,23 @@ public class WeatherDailyForecastRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(@NonNull WeatherDailyForecastHolder holder, int position) {
-        holder.setData(String.valueOf(mDataSource.getDailyForecastsWeathers()[position].getDateTime()),
-                String.valueOf(mDataSource.getDailyForecastsWeathers()[position].getMain().getTemp()));
+        if (sp.getBoolean("temperature_units", false)) {
+            holder.setData(mDataSource.getDailyForecastsWeathers()[position].getDate(),
+                    mDataSource.getDailyForecastsWeathers()[position].getTime(),
+                    String.format(Locale.ENGLISH, "%.1f", mDataSource
+                            .getDailyForecastsWeathers()[position].getMain().getTempF()),
+                    R.drawable.ic_fahrenheit);
+        } else {
+            holder.setData(mDataSource.getDailyForecastsWeathers()[position].getDate(),
+                    mDataSource.getDailyForecastsWeathers()[position].getTime(),
+                    String.format(Locale.ENGLISH, "%.1f", mDataSource
+                            .getDailyForecastsWeathers()[position].getMain().getTemp()),
+                    R.drawable.ic_celsius);
+        }
+    }
+
+    public void setDataSource(DailyForecasts dataSource) {
+        this.mDataSource = dataSource;
         notifyDataSetChanged();
     }
 

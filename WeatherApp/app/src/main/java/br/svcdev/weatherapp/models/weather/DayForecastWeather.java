@@ -2,6 +2,13 @@ package br.svcdev.weatherapp.models.weather;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import br.svcdev.weatherapp.ExternalUtils;
+
 public class DayForecastWeather {
 
     @SerializedName("dt")
@@ -47,4 +54,13 @@ public class DayForecastWeather {
     public void setWind(Wind wind) {
         this.wind = wind;
     }
+
+    public String getDate() {
+        return ExternalUtils.getDate(dateTime);
+    }
+
+    public String getTime() {
+        return ExternalUtils.getTime(dateTime);
+    }
+
 }

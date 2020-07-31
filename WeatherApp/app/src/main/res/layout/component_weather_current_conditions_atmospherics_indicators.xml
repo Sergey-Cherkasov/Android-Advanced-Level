@@ -4,30 +4,31 @@
     android:columnCount="3"
     android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
     android:layout_width="match_parent"
-    android:rowCount="2"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:rowCount="2">
 
     <ImageView
-        android:layout_height="64dp"
         android:layout_margin="5dp"
-        android:layout_width="64dp"
         android:layout_columnWeight="1"
-        android:src="@drawable/ic_pressure"/>
+        android:src="@drawable/ic_pressure"
+        style="@style/AtmosphericIndicatorsImageViewStyle"
+        android:contentDescription="TODO" />
 
     <ImageView
-        android:layout_height="64dp"
         android:layout_margin="5dp"
-        android:layout_width="64dp"
         android:layout_columnWeight="1"
-        android:src="@drawable/ic_humidity"/>
+        android:src="@drawable/ic_humidity"
+        style="@style/AtmosphericIndicatorsImageViewStyle"
+        android:contentDescription="TODO" />
 
     <ImageView
-        android:layout_height="64dp"
         android:layout_margin="5dp"
-        android:layout_width="64dp"
         android:layout_columnWeight="1"
-        android:src="@drawable/ic_wind"/>
+        android:src="@drawable/ic_wind"
+        style="@style/AtmosphericIndicatorsImageViewStyle"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_air_pressure"

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,8 +32,8 @@ import br.svcdev.weatherapp.network.ServerResponse;
 public class WeatherDailyForecast extends Fragment implements ServerResponse {
 
     private FragmentWeatherDailyForecastBinding mBinding;
-
     private DailyForecasts mDailyForecasts;
+    private WeatherDailyForecastRecyclerViewAdapter mAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,11 +52,12 @@ public class WeatherDailyForecast extends Fragment implements ServerResponse {
     }
 
     private void initRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mBinding.getRoot().getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mBinding.getRoot().getContext(),
+                RecyclerView.HORIZONTAL, false);
+        mAdapter = new WeatherDailyForecastRecyclerViewAdapter(requireContext(), mDailyForecasts);
         mBinding.recyclerViewFragmentWeatherDailyForecast.setHasFixedSize(true);
         mBinding.recyclerViewFragmentWeatherDailyForecast.setLayoutManager(layoutManager);
-        mBinding.recyclerViewFragmentWeatherDailyForecast.setAdapter(
-                new WeatherDailyForecastRecyclerViewAdapter(mDailyForecasts));
+        mBinding.recyclerViewFragmentWeatherDailyForecast.setAdapter(mAdapter);
     }
 
     private void onSendRequest() {
@@ -64,7 +66,7 @@ public class WeatherDailyForecast extends Fragment implements ServerResponse {
         String units = "metric";
         String languageCode = getResources().getString(R.string.language);
         requestParameters.put("id", locationId);
-        requestParameters.put("cnt", 5);
+        requestParameters.put("cnt", "8");
         requestParameters.put("units", units);
         requestParameters.put("lang", languageCode);
 
@@ -84,23 +86,23 @@ public class WeatherDailyForecast extends Fragment implements ServerResponse {
         Log.d(Constants.TAG_APP, "onServerResponse: " + responseString);
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-
         if (requestId.equals(HostRequestConstants.CONTROLLER_FIVE_DAYS_PER_THREE_HOURS_FORECAST)) {
             mDailyForecasts = gson.fromJson(responseString,
                     DailyForecasts.class);
-
+            for (DayForecastWeather item : mDailyForecasts.getDailyForecastsWeathers()) {
+                item.getMain().setTempF(celciusToFahrenheit(item.getMain().getTemp()));
+            }
+            mAdapter.setDataSource(mDailyForecasts);
         }
-        Log.d(Constants.TAG_APP, "onServerResponse: " + mDailyForecasts.getDailyForecastsWeathers().length);
-
-//        if (requestId.equals(HostRequestConstants.CONTROLLER_CURRENT_CONDITIONS)) {
-//            CurrentWeather currentWeather = gson.fromJson(responseString, CurrentWeather.class);
-//            mCityName = currentWeather.getCityName();
-//            mTemperature = currentWeather.getMain().getTemp();
-//            mAirPressure = currentWeather.getMain().getPressure();
-//            mHumidity = currentWeather.getMain().getHumidity();
-//            mWindSpeed = currentWeather.getWind().getSpeed();
-//            onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed);
-//        }
     }
 
+    private float celciusToFahrenheit(float temp) {
+        return temp * 9 / 5 + 32;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAdapter.setDataSource(mDailyForecasts);
+    }
 }

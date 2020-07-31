@@ -10,6 +10,9 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Класс описывает view элемент, расширящий androidx.appcompat.widget.AppCompatAutoCompleteTextView.
+ */
 public class LocationAutocompleteTextView
         extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
 
@@ -54,10 +57,5 @@ public class LocationAutocompleteTextView
             mIndicatorLoading.setVisibility(View.GONE);
         }
         super.onFilterComplete(count);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
     }
 }

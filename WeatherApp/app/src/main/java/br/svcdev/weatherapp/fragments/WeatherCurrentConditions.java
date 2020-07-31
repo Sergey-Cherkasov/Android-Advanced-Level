@@ -86,27 +86,25 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boolean isTemperatureSensorPresent;
-        boolean isHumiditySensorPresent;
-
-        if (getArguments() != null) {
-            isTemperatureSensorPresent = getArguments().getBoolean("Temperature");
-            isHumiditySensorPresent = getArguments().getBoolean("Humidity");
-        } else {
-            isTemperatureSensorPresent = false;
-            isHumiditySensorPresent = false;
-        }
         /*
         * Если сенсоры температуры и влажности имеются у устройства, то инициализируем их.
         * В противном случае отправляем запрос на погодный сервис.
         */
-        if (isTemperatureSensorPresent && isHumiditySensorPresent) {
+        if (isSensorsPresent()) {
             mSensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
             mTemperatureSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
             mHumiditySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
         } else {
             onSendRequest();
         }
+    }
+
+    private boolean isSensorsPresent() {
+        if (getArguments() != null){
+//            return getArguments().getBoolean("Temperature")
+//                    && getArguments().getBoolean("Humidity");
+        }
+        return false;
     }
 
     @Nullable

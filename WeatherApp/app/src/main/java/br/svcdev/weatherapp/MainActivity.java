@@ -65,19 +65,23 @@ public class MainActivity extends AppCompatActivity {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) == null &&
                 mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Attention").setMessage("There are no temperature" +
-                    " or humidity sensors on Your device").setCancelable(false)
-            .setPositiveButton(R.string.menu_ok, (dialog, id) -> {
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            showAlertDialog();
             mArgs.putBoolean("Temperature", false);
             mArgs.putBoolean("Humidity", false);
         } else {
             mArgs.putBoolean("Temperature", true);
             mArgs.putBoolean("Humidity", true);
         }
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Attention").setMessage("There are no temperature" +
+                " or humidity sensors on Your device").setCancelable(false)
+        .setPositiveButton(R.string.menu_ok, (dialog, id) -> {
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void loadWeatherAppSettings() {

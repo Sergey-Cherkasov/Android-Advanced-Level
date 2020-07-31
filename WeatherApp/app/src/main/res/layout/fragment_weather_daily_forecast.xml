@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.recyclerview.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler_view_fragment_weather_daily_forecast"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    tools:showIn="@layout/component_weather_daily_forecast_cardview">
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recycler_view_fragment_weather_daily_forecast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:showIn="@layout/component_weather_daily_forecast_cardview"
-        tools:listitem="5">
-
-    </androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+</androidx.recyclerview.widget.RecyclerView>

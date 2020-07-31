@@ -17,6 +17,8 @@ public class Main {
     @SerializedName("humidity")
     private int humidity;
 
+    private float tempF;
+
     public float getTemp() {
         return temp;
     }
@@ -63,5 +65,13 @@ public class Main {
 
     public void setHumidity(int humidity) {
         this.humidity = humidity;
+    }
+
+    public float getTempF() {
+        return tempF;
+    }
+
+    public void setTempF(float tempF) {
+        this.tempF = tempF;
     }
 }

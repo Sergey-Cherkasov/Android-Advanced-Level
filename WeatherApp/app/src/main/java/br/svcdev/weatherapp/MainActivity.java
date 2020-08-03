@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_location:
-                runActivity(SearchLocationActivity.class);
+                runActivity(MyViewActivity.class);
                 break;
             case R.id.settings:
                 runActivity(SettingsActivity.class);

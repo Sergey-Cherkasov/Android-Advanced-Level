@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ThermometerView">
+        <attr name="android:layout_width" format="integer"/>
+        <attr name="android:layout_height" format="integer" />
+        <attr name="warmTemperature_color" format="color" />
+        <attr name="coldTemperature_color" format="color" />
+    </declare-styleable>
+</resources>

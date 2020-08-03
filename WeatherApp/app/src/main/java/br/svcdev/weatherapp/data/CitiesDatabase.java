@@ -25,14 +25,15 @@ public abstract class CitiesDatabase extends RoomDatabase {
         if (sDatabaseInstance == null) {
             synchronized (CitiesDatabase.class) {
                 if (!new File(context.getDatabasePath("cities_list.db").toString()).exists()) {
-                    ExternalUtils.printDebugLog("getDatabase: Database file not exists. " +
+                    ExternalUtils.printDebugLog(CitiesDatabase.class.getSimpleName(),
+                            "getDatabase: Database file not exists. " +
                             "Pre-populated in and connecting to the database.");
                     sDatabaseInstance = Room.databaseBuilder(context.getApplicationContext(),
                             CitiesDatabase.class, "cities_list.db")
                             .createFromAsset("databases/cities_list.sqlite").build();
                 } else {
-                    ExternalUtils.printDebugLog("getDatabase: Database file exists. " +
-                            "Connecting to the database.");
+                    ExternalUtils.printDebugLog(CitiesDatabase.class.getSimpleName(),
+                            "getDatabase: Database file exists. Connecting to the database.");
                     sDatabaseInstance = Room.databaseBuilder(context.getApplicationContext(),
                             CitiesDatabase.class, "cities_list.db").build();
                 }

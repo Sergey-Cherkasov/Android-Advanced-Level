@@ -134,10 +134,10 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
         requestParameters.put("lang", languageCode);
 
         SendRequest sendRequest = new SendRequest(getParentFragmentManager(),
-                HostRequestConstants.CONTROLLER_CURRENT_CONDITIONS,
+                HostRequestConstants.REQUEST_CONTROLLER_CURRENT_CONDITIONS,
                 requestParameters,
                 HostRequestConstants.REQUEST_METHOD,
-                HostRequestConstants.CONTROLLER_CURRENT_CONDITIONS);
+                HostRequestConstants.REQUEST_CONTROLLER_CURRENT_CONDITIONS);
         sendRequest.execute();
     }
 
@@ -148,7 +148,7 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
         String responseString = response.get(requestId);
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        if (requestId.equals(HostRequestConstants.CONTROLLER_CURRENT_CONDITIONS)) {
+        if (requestId.equals(HostRequestConstants.REQUEST_CONTROLLER_CURRENT_CONDITIONS)) {
             CurrentWeather currentWeather = gson.fromJson(responseString, CurrentWeather.class);
             mCityName = currentWeather.getCityName();
             mTemperature = currentWeather.getMain().getTemp();

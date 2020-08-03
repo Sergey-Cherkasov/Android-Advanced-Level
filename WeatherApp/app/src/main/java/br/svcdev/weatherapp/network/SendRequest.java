@@ -72,16 +72,16 @@ public class SendRequest extends AsyncTask<Void, Map<String, String>, Map<String
     protected void onPostExecute(Map<String, String> responseMap) {
         super.onPostExecute(responseMap);
         switch (responseMap.keySet().iterator().next()) {
-            case HostRequestConstants.CONTROLLER_CURRENT_CONDITIONS:
+            case HostRequestConstants.REQUEST_CONTROLLER_CURRENT_CONDITIONS:
                 ((ServerResponse) mContext.findFragmentById(R.id.fragment_weather_current_conditions))
                         .onServerResponse(responseMap);
                 break;
-            case HostRequestConstants.CONTROLLER_FIVE_DAYS_PER_THREE_HOURS_FORECAST:
+            case HostRequestConstants.REQUEST_CONTROLLER_FIVE_DAYS_PER_THREE_HOURS_FORECAST:
                 ((ServerResponse) mContext
                         .findFragmentById(R.id.fragment_weather_daily_forecast))
                         .onServerResponse(responseMap);
                 break;
-            case HostRequestConstants.CONTROLLER_DAILY_FORECAST:
+            case HostRequestConstants.REQUEST_CONTROLLER_DAILY_FORECAST:
                 break;
             default:
         }

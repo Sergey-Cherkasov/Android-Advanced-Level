@@ -19,6 +19,7 @@ import androidx.preference.PreferenceManager;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,6 +31,7 @@ import br.svcdev.weatherapp.R;
 import br.svcdev.weatherapp.databinding.FragmentWeatherCurrentConditionsBinding;
 import br.svcdev.weatherapp.models.weather.CurrentWeather;
 import br.svcdev.weatherapp.network.HostRequestConstants;
+import br.svcdev.weatherapp.network.NetworkUtils;
 import br.svcdev.weatherapp.network.SendRequest;
 import br.svcdev.weatherapp.network.ServerResponse;
 
@@ -42,6 +44,7 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
     private int mAirPressure;
     private int mHumidity;
     private float mWindSpeed;
+    private String mIconId;
 
     private SensorManager mSensorManager;
 
@@ -121,7 +124,8 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
     @Override
     public void onStart() {
         super.onStart();
-        onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed);
+        onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed,
+                mIconId);
     }
 
     private void onSendRequest() {
@@ -155,12 +159,14 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
             mAirPressure = currentWeather.getMain().getPressure();
             mHumidity = currentWeather.getMain().getHumidity();
             mWindSpeed = currentWeather.getWind().getSpeed();
-            onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed);
+            mIconId = currentWeather.getWeathers()[0].getIcon();
+            onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed,
+                    mIconId);
         }
     }
 
     private void onAssignValuesToFields(String cityName, float temperature, int airPressure,
-                                        int humidity, float windSpeed) {
+                                        int humidity, float windSpeed, String iconId) {
         mBinding.componentWeatherCurrentConditionsTitle
                 .tvFragmentWeatherCurrentConditionsTitleCity
                 .setText(cityName);
@@ -180,6 +186,10 @@ public class WeatherCurrentConditions extends Fragment implements ServerResponse
                     .ivFragmentWeatherCurrentConditionsTemperatureUnits
                     .setImageResource(R.drawable.ic_celsius);
         }
+
+        NetworkUtils.loadImage(iconId, mBinding.componentWeatherCurrentConditionsCurrentTemperature
+                .ivFragmentWeatherCurrentConditionsCloudiness);
+
         mBinding.componentWeatherCurrentConditionsAtmosphericsIndicators
                 .tvFragmentWeatherCurrentConditionsAirPressure
                 .setText(String.format(Locale.ENGLISH, "%d %s",

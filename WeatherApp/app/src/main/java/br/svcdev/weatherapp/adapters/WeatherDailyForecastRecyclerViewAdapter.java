@@ -12,10 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Locale;
 
 import br.svcdev.weatherapp.R;
 import br.svcdev.weatherapp.models.weather.DailyForecasts;
+import br.svcdev.weatherapp.network.NetworkUtils;
 
 public class WeatherDailyForecastRecyclerViewAdapter
         extends RecyclerView.Adapter<WeatherDailyForecastRecyclerViewAdapter
@@ -99,6 +102,8 @@ public class WeatherDailyForecastRecyclerViewAdapter
                             .getDailyForecastsWeathers()[position].getMain().getTemp()),
                     R.drawable.ic_celsius);
         }
+        NetworkUtils.loadImage(mDataSource.getDailyForecastsWeathers()[position]
+                .getWeather()[0].getIcon(), holder.mCloudinnes);
     }
 
     public void setDataSource(DailyForecasts dataSource) {

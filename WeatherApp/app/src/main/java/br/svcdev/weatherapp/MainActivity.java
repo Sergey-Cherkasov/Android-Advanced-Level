@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar mActionBar;
     private SensorManager mSensorManager;
 
-    private Bundle mArgs;
+    private Bundle mArgs = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
      * Метод инициализации сенсоров: TYPE_AMBIENT_TEMPERATURE, TYPE_RELATIVE_HUMIDITY
      */
     private void requestSensors() {
-        mArgs = new Bundle();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) == null &&
                 mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY) == null) {
@@ -131,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_location:
-                runActivity(MyViewActivity.class);
+                runActivity(SearchLocationActivity.class);
                 break;
             case R.id.settings:
                 runActivity(SettingsActivity.class);

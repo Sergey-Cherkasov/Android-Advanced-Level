@@ -12,8 +12,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/cloudiness_icon"
-        android:src="@drawable/ic_launcher_foreground"/>
+        android:contentDescription="@string/cloudiness_icon"/>
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_temperature"
@@ -28,7 +27,6 @@
         android:layout_gravity="center"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:contentDescription="@string/units_icon"
-        android:src="@drawable/ic_launcher_foreground"/>
+        android:contentDescription="@string/units_icon"/>
 
 </LinearLayout>

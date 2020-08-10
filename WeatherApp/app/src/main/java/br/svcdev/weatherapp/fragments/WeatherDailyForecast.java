@@ -75,7 +75,7 @@ public class WeatherDailyForecast extends Fragment {
      * Метод создает входные данные для запроса
      **/
     private Data createInputData() {
-        int locationId = 1503901;
+        int locationId = getCityIdFromArguments();
         int countRecords = 8;
         String units = "metric";
         String languageCode = getResources().getString(R.string.language);
@@ -86,7 +86,6 @@ public class WeatherDailyForecast extends Fragment {
                 .putString("lang", languageCode)
                 .build();
     }
-
 
     public void onServerResponse() {
         workManager.getWorkInfoByIdLiveData(workRequest.getId()).observe((LifecycleOwner) requireContext(),
@@ -114,4 +113,9 @@ public class WeatherDailyForecast extends Fragment {
         super.onStart();
         mAdapter.setDataSource(mDailyForecasts);
     }
+
+    private int getCityIdFromArguments() {
+        return getArguments() != null ? getArguments().getInt("cityId", 0) : 0;
+    }
+
 }

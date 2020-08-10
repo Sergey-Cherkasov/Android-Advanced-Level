@@ -14,7 +14,6 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.setTitle(R.string.settings);
-            mode.getMenuInflater().inflate(R.menu.settings_app_bar_menu, menu);
             return true;
         }
 

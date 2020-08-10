@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -85,6 +86,7 @@ public class WeatherCurrentConditions extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /*
          * Если сенсоры температуры и влажности имеются у устройства, то инициализируем их.
          * В противном случае отправляем запрос на погодный сервис.
@@ -109,6 +111,7 @@ public class WeatherCurrentConditions extends Fragment {
         mBinding = FragmentWeatherCurrentConditionsBinding.inflate(inflater, container,
                 false);
         sp = PreferenceManager.getDefaultSharedPreferences(mBinding.getRoot().getContext());
+        Toast.makeText(requireContext(), "onCreateView", Toast.LENGTH_LONG).show();
         return mBinding.getRoot();
     }
 
@@ -117,6 +120,7 @@ public class WeatherCurrentConditions extends Fragment {
         super.onStart();
         onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed,
                 mIconId);
+        Toast.makeText(requireContext(), "onStart", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -148,13 +152,12 @@ public class WeatherCurrentConditions extends Fragment {
     }
 
     private void initRetrofit() {
-        mOpenWeatherRequest =
-                NetworkUtils.onRetrofitCreate(GsonConverterFactory.create())
-                        .create(OpenWeatherRequest.class);
+        mOpenWeatherRequest = NetworkUtils.onRetrofitCreate(GsonConverterFactory.create())
+                .create(OpenWeatherRequest.class);
     }
 
     private void onSendRequest() {
-        int locationId = 1503901;
+        int locationId = getCityIdFromArguments();
         String units = "metric";
         String languageCode = getResources().getString(R.string.language);
 
@@ -248,5 +251,9 @@ public class WeatherCurrentConditions extends Fragment {
 //                    && getArguments().getBoolean("Humidity");
         }
         return false;
+    }
+
+    private int getCityIdFromArguments() {
+        return getArguments() != null ? getArguments().getInt("cityId", 0) : 0;
     }
 }

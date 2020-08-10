@@ -10,6 +10,7 @@ import androidx.work.WorkerParameters;
 import java.io.IOException;
 
 import br.svcdev.weatherapp.BuildConfig;
+import br.svcdev.weatherapp.ExternalUtils;
 import br.svcdev.weatherapp.network.NetworkUtils;
 import br.svcdev.weatherapp.network.OpenWeatherRequest;
 import retrofit2.Response;
@@ -31,6 +32,7 @@ public class DailyForecastWorker extends Worker {
         try {
             Response<String> response = requestRetrofit(openWeatherRequest);
             Data data = new Data.Builder().putString("response", response.body()).build();
+            ExternalUtils.printDebugLog(getClass().getSimpleName(), response.body());
             return Result.success(data);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package br.svcdev.weatherapp.network;
 
+import android.net.Uri;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -11,8 +12,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public abstract class NetworkUtils {
 
     public static void loadImage(String iconId, ImageView imageView) {
-        Picasso.get().load(String.format("http://openweathermap.org/img/wn/%s.png", iconId))
-                .into(imageView);
+        Uri uri = Uri.parse(String.format("http://openweathermap.org/img/wn/%s@2x.png", iconId));
+        Picasso.get().load(uri).into(imageView);
     }
 
     public static String getBaseUrl() {

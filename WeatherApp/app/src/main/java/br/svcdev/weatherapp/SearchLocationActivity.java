@@ -24,6 +24,7 @@ public class SearchLocationActivity extends AppCompatActivity {
     private ActivitySearchLocationBinding mBinding;
     private CitiesDatabase db;
     private CityDao dao;
+    private City city;
 
     private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
         @Override
@@ -41,6 +42,16 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            if (item.getItemId() == R.id.ok) {
+                SharedPreferences sp = PreferenceManager
+                        .getDefaultSharedPreferences(mBinding.getRoot().getContext());
+                sp.edit()
+                        .putInt("cityId", city.getCityId())
+                        .putString("cityName", city.getCityName())
+                        .apply();
+                finish();
+                return true;
+            }
             return false;
         }
 
@@ -69,7 +80,7 @@ public class SearchLocationActivity extends AppCompatActivity {
 
         mBinding.tvLocation.setIndicatorLoading(mBinding.pbLocation);
         mBinding.tvLocation.setOnItemClickListener((adapterView, view, i, l) -> {
-            City city = (City) adapterView.getItemAtPosition(i);
+            city = (City) adapterView.getItemAtPosition(i);
             mBinding.tvLocation.setText(city.getCityName());
         });
 

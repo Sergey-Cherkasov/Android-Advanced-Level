@@ -98,8 +98,6 @@ public class WeatherCurrentConditions extends Fragment {
         } else {
             // Инициализируем retrofit
             initRetrofit();
-            // формируем и отправляем запрос на удаленный ресурс
-            onSendRequest();
         }
     }
 
@@ -118,9 +116,8 @@ public class WeatherCurrentConditions extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        onAssignValuesToFields(mCityName, mTemperature, mAirPressure, mHumidity, mWindSpeed,
-                mIconId);
-        Toast.makeText(requireContext(), "onStart", Toast.LENGTH_LONG).show();
+        // формируем и отправляем запрос на удаленный ресурс
+        onSendRequest(sp.getInt("cityId", 0));
     }
 
     @Override
@@ -156,8 +153,8 @@ public class WeatherCurrentConditions extends Fragment {
                 .create(OpenWeatherRequest.class);
     }
 
-    private void onSendRequest() {
-        int locationId = getCityIdFromArguments();
+    private void onSendRequest(int cityId) {
+        int locationId = cityId;
         String units = "metric";
         String languageCode = getResources().getString(R.string.language);
 
@@ -253,7 +250,4 @@ public class WeatherCurrentConditions extends Fragment {
         return false;
     }
 
-    private int getCityIdFromArguments() {
-        return getArguments() != null ? getArguments().getInt("cityId", 0) : 0;
-    }
 }

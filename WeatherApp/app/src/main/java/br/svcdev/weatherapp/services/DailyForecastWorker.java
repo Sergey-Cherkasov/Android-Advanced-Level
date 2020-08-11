@@ -32,7 +32,6 @@ public class DailyForecastWorker extends Worker {
         try {
             Response<String> response = requestRetrofit(openWeatherRequest);
             Data data = new Data.Builder().putString("response", response.body()).build();
-            ExternalUtils.printDebugLog(getClass().getSimpleName(), response.body());
             return Result.success(data);
         } catch (IOException e) {
             e.printStackTrace();

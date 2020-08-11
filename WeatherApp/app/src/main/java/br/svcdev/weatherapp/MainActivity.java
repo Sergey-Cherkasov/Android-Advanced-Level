@@ -1,24 +1,20 @@
 package br.svcdev.weatherapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
 import br.svcdev.weatherapp.fragments.WeatherCurrentConditions;
@@ -28,7 +24,6 @@ import br.svcdev.weatherapp.models.WeatherAppSettings;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mBinding;
-    private ActionBar mActionBar;
     private SensorManager mSensorManager;
 
     private Bundle mArgs = new Bundle();
@@ -77,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Attention").setMessage("There are no temperature" +
                 " or humidity sensors on Your device").setCancelable(false)
-        .setPositiveButton(R.string.menu_ok, (dialog, id) -> {
-        });
+                .setPositiveButton(R.string.menu_ok, (dialog, id) -> {
+                });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -90,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         settings.setWindSpeedUnits(sp.getBoolean("speed_units", false));
     }
 
-    /** Метод инициализирует app bar и подключает слушателя на navigation button, при нажатии
+    /**
+     * Метод инициализирует app bar и подключает слушателя на navigation button, при нажатии
      * на которую открывается navigation view.
      */
     private void initAppBar() {
@@ -102,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initWeatherDailyForecastFragment() {
         Fragment mWeatherDailyForecastFragment = new WeatherDailyForecast();
+        mWeatherDailyForecastFragment.setArguments(mArgs);
         FragmentTransaction mWeatherDailyForecastTransaction = getSupportFragmentManager()
                 .beginTransaction();
         mWeatherDailyForecastTransaction.replace(R.id.fragment_weather_daily_forecast,

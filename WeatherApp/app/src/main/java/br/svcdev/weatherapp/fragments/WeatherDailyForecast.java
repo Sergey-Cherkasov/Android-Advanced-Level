@@ -1,5 +1,6 @@
 package br.svcdev.weatherapp.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.Data;
@@ -34,11 +36,11 @@ public class WeatherDailyForecast extends Fragment {
     private WeatherDailyForecastRecyclerViewAdapter mAdapter;
     private WorkManager workManager;
     private WorkRequest workRequest;
+    private SharedPreferences sp;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        onSendRequest();
     }
 
     @Nullable
@@ -47,8 +49,8 @@ public class WeatherDailyForecast extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = FragmentWeatherDailyForecastBinding.inflate(inflater, container,
                 false);
+        sp = PreferenceManager.getDefaultSharedPreferences(mBinding.getRoot().getContext());
         initRecyclerView();
-        onServerResponse();
         return mBinding.getRoot();
     }
 
@@ -63,19 +65,23 @@ public class WeatherDailyForecast extends Fragment {
 
     /**
      * Метод формирует и отправляет запрос в WorkManager
-     **/
-    private void onSendRequest() {
+     *
+     * @param cityId
+     */
+    private void onSendRequest(int cityId) {
         workRequest = new OneTimeWorkRequest.Builder(DailyForecastWorker.class)
-                .setInputData(createInputData()).build();
+                .setInputData(createInputData(cityId)).build();
         workManager = WorkManager.getInstance(requireContext());
         workManager.enqueue(workRequest);
     }
 
     /**
      * Метод создает входные данные для запроса
-     **/
-    private Data createInputData() {
-        int locationId = getCityIdFromArguments();
+     *
+     * @param cityId
+     */
+    private Data createInputData(int cityId) {
+        int locationId = cityId;
         int countRecords = 8;
         String units = "metric";
         String languageCode = getResources().getString(R.string.language);
@@ -111,11 +117,8 @@ public class WeatherDailyForecast extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.setDataSource(mDailyForecasts);
-    }
-
-    private int getCityIdFromArguments() {
-        return getArguments() != null ? getArguments().getInt("cityId", 0) : 0;
+        onSendRequest(sp.getInt("cityId", 0));
+        onServerResponse();
     }
 
 }

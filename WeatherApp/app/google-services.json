@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "949033763035",
+    "firebase_url": "https://wheather-app-281015.firebaseio.com",
+    "project_id": "wheather-app-281015",
+    "storage_bucket": "wheather-app-281015.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949033763035:android:05b7b33f031258748c4cfe",
+        "android_client_info": {
+          "package_name": "br.svcdev.weatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949033763035-hs1b8ne4bpos3kqj8ll5dmjc5fpgdm6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXu-4n-UKWrBUa4f11Dib2ebRbJCzppV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949033763035-hs1b8ne4bpos3kqj8ll5dmjc5fpgdm6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

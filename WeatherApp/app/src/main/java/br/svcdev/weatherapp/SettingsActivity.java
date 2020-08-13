@@ -10,48 +10,48 @@ import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
-        @Override
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.setTitle(R.string.settings);
-            return true;
-        }
+	private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+		@Override
+		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+			mode.setTitle(R.string.settings);
+			return true;
+		}
 
-        @Override
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
+		@Override
+		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+			return false;
+		}
 
-        @Override
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            return false;
-        }
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+			return false;
+		}
 
-        @Override
-        public void onDestroyActionMode(ActionMode mode) {
-            mode = null;
-            finish();
-        }
-    };
+		@Override
+		public void onDestroyActionMode(ActionMode mode) {
+			mode = null;
+			finish();
+		}
+	};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.settings, new SettingsFragment())
-                .commit();
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.settings_activity);
+		getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.settings, new SettingsFragment())
+				.commit();
 
-        startSupportActionMode(mActionModeCallback);
+		startSupportActionMode(mActionModeCallback);
 
-    }
+	}
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
+	public static class SettingsFragment extends PreferenceFragmentCompat {
+		@Override
+		public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+			setPreferencesFromResource(R.xml.root_preferences, rootKey);
+		}
 
-    }
+	}
 }

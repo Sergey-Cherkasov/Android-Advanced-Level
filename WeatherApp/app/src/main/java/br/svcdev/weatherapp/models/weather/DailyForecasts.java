@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 public class DailyForecasts {
 
-    @SerializedName("list")
-    private DayForecastWeather[] mDailyForecastsWeathers;
+	@SerializedName("list")
+	private DayForecastWeather[] mDailyForecastsWeathers;
 
-    public DayForecastWeather[] getDailyForecastsWeathers() {
-        return mDailyForecastsWeathers;
-    }
+	public DayForecastWeather[] getDailyForecastsWeathers() {
+		return mDailyForecastsWeathers;
+	}
 
-    public void setDailyForecastsWeathers(DayForecastWeather[] mDailyForecastsWeathers) {
-        this.mDailyForecastsWeathers = mDailyForecastsWeathers;
-    }
+	public void setDailyForecastsWeathers(DayForecastWeather[] mDailyForecastsWeathers) {
+		this.mDailyForecastsWeathers = mDailyForecastsWeathers;
+	}
 }

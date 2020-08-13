@@ -15,19 +15,19 @@
 
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">16sp</item>
-        
+
     </style>
 
     <style name="AtmosphericIndicatorsImageViewStyle">
         <item name="android:layout_height">32dp</item>
         <item name="android:layout_width">32dp</item>
     </style>
-    
+
     <style name="AppDarkTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">20sp</item>
     </style>
-    
+
     <style name="Widget.App.ActionMode" parent="Widget.AppCompat.ActionMode">
         <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
         <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>

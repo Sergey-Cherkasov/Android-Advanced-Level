@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:columnCount="3"
-    android:layout_gravity="center_horizontal"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="32dp"
+    android:columnCount="3"
     android:orientation="horizontal"
     android:rowCount="2">
 
     <ImageView
-        android:layout_margin="5dp"
-        android:layout_columnWeight="1"
-        android:src="@drawable/ic_pressure"
         style="@style/AtmosphericIndicatorsImageViewStyle"
-        android:contentDescription="TODO" />
+        android:layout_columnWeight="1"
+        android:layout_margin="5dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_pressure" />
 
     <ImageView
-        android:layout_margin="5dp"
-        android:layout_columnWeight="1"
-        android:src="@drawable/ic_humidity"
         style="@style/AtmosphericIndicatorsImageViewStyle"
-        android:contentDescription="TODO" />
+        android:layout_columnWeight="1"
+        android:layout_margin="5dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_humidity" />
 
     <ImageView
-        android:layout_margin="5dp"
-        android:layout_columnWeight="1"
-        android:src="@drawable/ic_wind"
         style="@style/AtmosphericIndicatorsImageViewStyle"
-        android:contentDescription="TODO" />
+        android:layout_columnWeight="1"
+        android:layout_margin="5dp"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_wind" />
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_air_pressure"
-        android:layout_gravity="fill"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
         android:text="mm" />
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_humidity"
-        android:layout_gravity="fill"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
         android:text="mm" />
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_wind_speed"
-        android:layout_gravity="fill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="fill"
         android:text="mm" />
 
 </GridLayout>

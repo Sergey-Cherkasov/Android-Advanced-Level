@@ -13,18 +13,18 @@ import br.svcdev.weatherapp.data.models.City;
 @Dao
 public interface CityDao {
 
-    // Выбираем все записи
-    @Query("SELECT * FROM cities")
-    List<City> getAllCities();
+	// Выбираем все записи
+	@Query("SELECT * FROM cities")
+	List<City> getAllCities();
 
-    // Выбираем записи удовлетворяющие условию
-    @Query("SELECT * FROM cities WHERE name LIKE :name LIMIT 5")
-    List<City> getListCities(String name);
+	// Выбираем записи удовлетворяющие условию
+	@Query("SELECT * FROM cities WHERE name LIKE :name LIMIT 5")
+	List<City> getListCities(String name);
 
-    // Количество записей в БД
-    @Query("SELECT COUNT() FROM cities")
-    long getCountCities();
+	// Количество записей в БД
+	@Query("SELECT COUNT() FROM cities")
+	long getCountCities();
 
-    @Query("DELETE FROM cities")
-    void deleteAll();
+	@Query("DELETE FROM cities")
+	void deleteAll();
 }

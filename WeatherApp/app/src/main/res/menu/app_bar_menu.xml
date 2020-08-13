@@ -2,14 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/search_location"
+    <item
+        android:id="@+id/search_location"
         android:icon="@drawable/ic_location_city"
         android:title="@string/search_location"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/settings"
-        android:title="@string/settings"
+    <item
+        android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
         app:showAsAction="ifRoom" />
 
 </menu>

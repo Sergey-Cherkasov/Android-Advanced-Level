@@ -19,7 +19,7 @@ public class WeatherAppMessagingService extends FirebaseMessagingService {
 	@Override
 	public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
 		String title = remoteMessage.getNotification().getTitle();
-		if (title == null){
+		if (title == null) {
 			title = "Push Message";
 		}
 		String text = remoteMessage.getNotification().getBody();

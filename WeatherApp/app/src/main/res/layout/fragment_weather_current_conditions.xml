@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/component_weather_current_conditions_title"
-        android:id="@+id/component_weather_current_conditions_title"/>
-    <include layout="@layout/component_weather_current_conditions_current_temperature"
-        android:id="@+id/component_weather_current_conditions_current_temperature"/>
-    <include layout="@layout/component_weather_current_conditions_atmospherics_indicators"
-        android:id="@+id/component_weather_current_conditions_atmospherics_indicators"/>
+    <include
+        android:id="@+id/component_weather_current_conditions_title"
+        layout="@layout/component_weather_current_conditions_title" />
+
+    <include
+        android:id="@+id/component_weather_current_conditions_current_temperature"
+        layout="@layout/component_weather_current_conditions_current_temperature" />
+
+    <include
+        android:id="@+id/component_weather_current_conditions_atmospherics_indicators"
+        layout="@layout/component_weather_current_conditions_atmospherics_indicators" />
 
 </LinearLayout>

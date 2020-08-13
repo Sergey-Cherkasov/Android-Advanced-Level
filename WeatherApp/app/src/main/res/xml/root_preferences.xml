@@ -3,15 +3,15 @@
 
         <SwitchPreferenceCompat
             app:key="temperature_units"
-            app:title="@string/temperature"
             app:summaryOff="@string/temperature_summary_off"
-            app:summaryOn="@string/temperature_summary_on" />
+            app:summaryOn="@string/temperature_summary_on"
+            app:title="@string/temperature" />
 
         <SwitchPreferenceCompat
             app:key="speed_units"
-            app:title="@string/speed_units"
             app:summaryOff="@string/speed_summary_off"
-            app:summaryOn="@string/speed_summary_on" />
+            app:summaryOn="@string/speed_summary_on"
+            app:title="@string/speed_units" />
 
     </PreferenceCategory>
 </PreferenceScreen>

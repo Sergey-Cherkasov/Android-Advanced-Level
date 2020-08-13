@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private SensorManager mSensorManager;
 
-	private BroadcastReceiver networkStateReceiver = new AppReceiver();
+	private BroadcastReceiver broadcastReceiver = new AppReceiver();
 
 	private Bundle mArgs = new Bundle();
 
@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 		mBinding = ActivityMainBinding.inflate(getLayoutInflater());
 		setContentView(mBinding.getRoot());
 
-		registerReceiver(networkStateReceiver,
+		registerReceiver(broadcastReceiver,
 				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-		registerReceiver(networkStateReceiver,
+		registerReceiver(broadcastReceiver,
 				new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
-		registerReceiver(networkStateReceiver,
+		registerReceiver(broadcastReceiver,
 				new IntentFilter(Intent.ACTION_BATTERY_LOW));
 		Notifications.initNotificationChannel(this);
 
@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		unregisterReceiver(networkStateReceiver);
+	protected void onStop() {
+		super.onStop();
+		unregisterReceiver(broadcastReceiver);
 	}
 }

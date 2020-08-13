@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_gravity="center_horizontal"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="16dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -12,7 +11,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/cloudiness_icon"/>
+        android:contentDescription="@string/cloudiness_icon" />
 
     <TextView
         android:id="@+id/tv_fragment_weather_current_conditions_temperature"
@@ -24,9 +23,9 @@
 
     <ImageView
         android:id="@+id/iv_fragment_weather_current_conditions_temperature_units"
-        android:layout_gravity="center"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:contentDescription="@string/units_icon"/>
+        android:layout_gravity="center"
+        android:contentDescription="@string/units_icon" />
 
 </LinearLayout>

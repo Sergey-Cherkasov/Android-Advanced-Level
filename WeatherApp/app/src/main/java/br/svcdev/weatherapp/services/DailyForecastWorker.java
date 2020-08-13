@@ -1,6 +1,7 @@
 package br.svcdev.weatherapp.services;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Data;
@@ -31,6 +32,7 @@ public class DailyForecastWorker extends Worker {
 
         try {
             Response<String> response = requestRetrofit(openWeatherRequest);
+            Log.d("WeatherApp", "doWork: " + response);
             Data data = new Data.Builder().putString("response", response.body()).build();
             return Result.success(data);
         } catch (IOException e) {

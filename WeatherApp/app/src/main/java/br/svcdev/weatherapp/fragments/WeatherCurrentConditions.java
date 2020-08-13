@@ -117,7 +117,11 @@ public class WeatherCurrentConditions extends Fragment {
     public void onStart() {
         super.onStart();
         // формируем и отправляем запрос на удаленный ресурс
-        onSendRequest(sp.getInt("cityId", 0));
+        if (sp.getInt("cityId", 0) != 0) {
+            onSendRequest(sp.getInt("cityId", 0));
+        } else {
+            onSendRequest(1503901);
+        }
     }
 
     @Override

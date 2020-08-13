@@ -117,7 +117,11 @@ public class WeatherDailyForecast extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        onSendRequest(sp.getInt("cityId", 0));
+        if (sp.getInt("cityId", 0) != 0) {
+            onSendRequest(sp.getInt("cityId", 0));
+        } else {
+            onSendRequest(1503901);
+        }
         onServerResponse();
     }
 

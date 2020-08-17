@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
+import br.svcdev.weatherapp.fragments.MapsActivity;
 import br.svcdev.weatherapp.fragments.WeatherCurrentConditions;
 import br.svcdev.weatherapp.fragments.WeatherDailyForecast;
 import br.svcdev.weatherapp.models.WeatherAppSettings;
@@ -42,12 +43,6 @@ public class MainActivity extends AppCompatActivity {
 		mBinding = ActivityMainBinding.inflate(getLayoutInflater());
 		setContentView(mBinding.getRoot());
 
-		registerReceiver(broadcastReceiver,
-				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-		registerReceiver(broadcastReceiver,
-				new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
-		registerReceiver(broadcastReceiver,
-				new IntentFilter(Intent.ACTION_BATTERY_LOW));
 		Notifications.initNotificationChannel(this);
 
 		requestSensors();
@@ -143,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 			case R.id.search_location:
 				runActivity(SearchLocationActivity.class);
 				break;
+			case R.id.map_activity:
+				runActivity(MapsActivity.class);
+				break;
 			case R.id.settings:
 				runActivity(SettingsActivity.class);
 				break;
@@ -164,6 +162,17 @@ public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		registerReceiver(broadcastReceiver,
+				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+		registerReceiver(broadcastReceiver,
+				new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED));
+		registerReceiver(broadcastReceiver,
+				new IntentFilter(Intent.ACTION_BATTERY_LOW));
 	}
 
 	@Override

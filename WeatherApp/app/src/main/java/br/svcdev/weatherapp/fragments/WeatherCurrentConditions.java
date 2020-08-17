@@ -158,15 +158,10 @@ public class WeatherCurrentConditions extends Fragment {
 	}
 
 	private void onSendRequest(int cityId) {
-		int locationId = cityId;
 		String units = "metric";
 		String languageCode = getResources().getString(R.string.language);
 
-		requestRetrofit(locationId, units, languageCode);
-	}
-
-	private void requestRetrofit(int id, String units, String lang) {
-		mOpenWeatherRequest.loadCurrentWeather(id, units, lang, BuildConfig.API_KEY)
+		mOpenWeatherRequest.loadCurrentWeather(cityId, units, languageCode, BuildConfig.API_KEY)
 				.enqueue(new Callback<CurrentWeather>() {
 					@Override
 					public void onResponse(@NonNull Call<CurrentWeather> call,

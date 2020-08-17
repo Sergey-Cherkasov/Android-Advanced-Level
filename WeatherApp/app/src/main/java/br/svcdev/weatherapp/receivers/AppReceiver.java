@@ -20,23 +20,7 @@ public class AppReceiver extends BroadcastReceiver {
 				ConnectivityManager connectivityManager =
 						(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-				if (networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-					Notifications.getNotification(
-							context,
-							"2",
-							"Type network",
-							"Internet connection via Wifi"
-					);
-				} else if (networkInfo != null
-						&& networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-					Notifications.getNotification(
-							context,
-							"2",
-							"Type network",
-							"Internet connection via mobile data"
-					);
-				} else {
+				if (networkInfo == null) {
 					Notifications.getNotification(
 							context,
 							"2",

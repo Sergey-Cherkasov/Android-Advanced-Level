@@ -155,6 +155,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 		if (requestCode == PERMISSION_REQUEST_CODE) {
 			if (grantResults.length == 2 && (grantResults[0] == PackageManager.PERMISSION_GRANTED ||
 					grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+				requestLocation();
 			}
 		}
 	}

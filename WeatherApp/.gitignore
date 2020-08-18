@@ -226,3 +226,5 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/androidstudio,android,java
 /.idea/dbnavigator.xml
 /app/google-services.json
+/app/src/free/google-services.json
+/app/src/paid/google-services.json

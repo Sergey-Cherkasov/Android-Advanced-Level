@@ -34,4 +34,8 @@
         <item name="background">@color/material_grey_900</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
 </resources>

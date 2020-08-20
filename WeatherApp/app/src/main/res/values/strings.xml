@@ -27,6 +27,7 @@
     <string name="menu_save">Save</string>
     <string name="cloudiness_icon">Cloudiness icon</string>
     <string name="units_icon" translatable="false">Units icon</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Weather map</string>
+    <string name="open_map">Open map</string>
 
 </resources>

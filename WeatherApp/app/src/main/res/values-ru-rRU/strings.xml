@@ -16,4 +16,6 @@
     <string name="feedback">Обратная связь</string>
     <string name="menu_save">Сохранить</string>
     <string name="cloudiness_icon">Изображение облачности</string>
+    <string name="title_activity_maps">Карта погоды</string>
+    <string name="open_map">Открыть карту</string>
 </resources>

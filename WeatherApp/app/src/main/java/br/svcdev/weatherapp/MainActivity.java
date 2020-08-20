@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import br.svcdev.weatherapp.databinding.ActivityMainBinding;
-import br.svcdev.weatherapp.fragments.MapsActivity;
 import br.svcdev.weatherapp.fragments.WeatherCurrentConditions;
 import br.svcdev.weatherapp.fragments.WeatherDailyForecast;
 import br.svcdev.weatherapp.models.WeatherAppSettings;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setTheme(R.style.AppTheme);
 		super.onCreate(savedInstanceState);
 		mBinding = ActivityMainBinding.inflate(getLayoutInflater());
 		setContentView(mBinding.getRoot());
@@ -136,22 +136,18 @@ public class MainActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.search_location:
-				runActivity(SearchLocationActivity.class);
+				AppbarHandler.onClickItemMenuSearchLocation(this);
 				break;
 			case R.id.map_activity:
-				runActivity(MapsActivity.class);
+				AppbarHandler.onClickItemMenuMap(this);
 				break;
 			case R.id.settings:
-				runActivity(SettingsActivity.class);
+				AppbarHandler.onClickItemMenuSettings(this);
 				break;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
 		return true;
-	}
-
-	private void runActivity(Class<?> nameClass) {
-		startActivity(new Intent(this, nameClass));
 	}
 
 	@Override
